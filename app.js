@@ -1,5 +1,5 @@
 /* ============================================================
-   广州某园区猫咪故事馆 · 主逻辑（外置 JS，全 addEventListener，无 fetch）
+   广州猫咪故事馆 · 主逻辑（外置 JS，全 addEventListener，无 fetch）
    ============================================================ */
 (function () {
   "use strict";
@@ -588,7 +588,7 @@
       ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
       ctx.lineWidth = 2;
       ctx.beginPath(); ctx.arc(0, 0, r - 13, 0, Math.PI * 2); ctx.stroke();
-      arcText("广州某园区猫咪故事馆 · 秋日来信 · VOL.01", 0, 0, r - 8, 152, 388, 12.5, ochre);
+      arcText("广州猫咪故事馆 · 秋日来信 · VOL.01", 0, 0, r - 8, 152, 388, 12.5, ochre);
       txt("已遇见", 0, 4, 22, ochre, "center", 700, "3px");
       txt("2026 · AUTUMN", 0, 27, 12, ochre, "center", 400);
       ctx.restore();
@@ -608,7 +608,7 @@
       var im = rs[0], avatar = rs[1], stamp = rs[2];
 
       /* —— 页眉：馆名 + 期号 + 邮票 —— */
-      txt("广州某园区猫咪故事馆", L, 84, 27, pine, "left", 700, "2px");
+      txt("广州猫咪故事馆", L, 84, 27, pine, "left", 700, "2px");
       txt("VOL.01 · 秋日来信 · 遇见纪念", L, 116, 17, "#7c806d", "left");
       ctx.save();
       ctx.translate(W - 50, 40); ctx.rotate(Math.PI / 26);
