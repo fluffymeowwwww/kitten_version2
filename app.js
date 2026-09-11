@@ -741,10 +741,10 @@
       // 昵称单行，垂直居中于头像
       txt(state.me.nick || DEFAULT_NICK, 160, 883, 27, ink, "left", 700, "1px");
       txt(String(daysLeft()), R, 876, 52, rust, "right", 700);
-      txt("天后拆迁", R, 902, 16, muted, "right");
+      txt("天后截止", R, 902, 16, muted, "right");
 
       /* —— 底边小字 —— */
-      txt("距离广州某园区拆迁还有 " + daysLeft() + " 天，在 TA 找到家之前，请记得 TA", W / 2, 956, 15, muted, "center");
+      txt("距离安置截止还有 " + daysLeft() + " 天，在 TA 找到家之前，请记得 TA", W / 2, 956, 15, muted, "center");
 
       // 导出
       var dataUrl = cv.toDataURL("image/png");
@@ -791,10 +791,10 @@
     var cur = WALL_FILTERS.filter(function (f) { return f.id === wallFilter; })[0];
     var list = CATS.filter(cur.test);
 
-    // 一、拆迁待安排（首页能摸到的 15 位）排最前
+    // 一、待安置（首页能摸到的 15 位）排最前
     var pool = list.filter(function (c) { return c.pool; });
     if (pool.length) {
-      box.appendChild(wallSection("拆迁待安排", "首页能摸到的 " + pool.length + " 位，优先安置", pool));
+      box.appendChild(wallSection("待安置", "首页能摸到的 " + pool.length + " 位，优先安置", pool));
     }
     // 二、其余按家族分组
     var rest = list.filter(function (c) { return !c.pool; });
