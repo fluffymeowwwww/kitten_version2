@@ -1,5 +1,5 @@
 /* ============================================================
-   广州猫咪故事馆 · 主逻辑（外置 JS，全 addEventListener，无 fetch）
+   同创汇猫咪故事馆 · 主逻辑（外置 JS，全 addEventListener，无 fetch）
    ============================================================ */
 (function () {
   "use strict";
@@ -84,8 +84,8 @@
   };
   var ARCHIVE_CAP = { star: "记着 TA 就好", lost: "给 TA 留一张空位" };
 
-  // 摸猫池：只有 HALL 的 16 位会出现在首页抽卡里
-  var POOL = CATS.filter(function (c) { return c.pool; });
+  // 摸猫池：只有待领养/司猫的 pool 猫会出现在首页抽卡里（寄养/失踪/回喵星不进待安置池）
+  var POOL = CATS.filter(function (c) { return c.pool && (c.status === "wait" || c.status === "shop"); });
   // 名字 → 猫（含别名与原表错别字），用于故事里 [[热词]] 的跳转
   var NAME_MAP = (function () {
     var m = {};
@@ -596,7 +596,7 @@
       ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
       ctx.lineWidth = 2;
       ctx.beginPath(); ctx.arc(0, 0, r - 13, 0, Math.PI * 2); ctx.stroke();
-      arcText("广州猫咪故事馆 · 秋日来信 · VOL.01", 0, 0, r - 8, 152, 388, 12.5, ochre);
+      arcText("同创汇猫咪故事馆 · 秋日来信 · VOL.01", 0, 0, r - 8, 152, 388, 12.5, ochre);
       txt("已遇见", 0, 4, 22, ochre, "center", 700, "3px");
       txt("2026 · AUTUMN", 0, 27, 12, ochre, "center", 400);
       ctx.restore();
@@ -616,7 +616,7 @@
       var im = rs[0], avatar = rs[1], stamp = rs[2];
 
       /* —— 页眉：馆名 + 期号 + 邮票 —— */
-      txt("广州猫咪故事馆", L, 84, 27, pine, "left", 700, "2px");
+      txt("同创汇猫咪故事馆", L, 84, 27, pine, "left", 700, "2px");
       txt("VOL.01 · 秋日来信 · 遇见纪念", L, 116, 17, "#7c806d", "left");
       ctx.save();
       ctx.translate(W - 50, 40); ctx.rotate(Math.PI / 26);
@@ -749,10 +749,10 @@
       // 昵称单行，垂直居中于头像
       txt(state.me.nick || DEFAULT_NICK, 160, 883, 27, ink, "left", 700, "1px");
       txt(String(daysLeft()), R, 876, 52, rust, "right", 700);
-      txt("天后截止", R, 902, 16, muted, "right");
+      txt("天后拆迁", R, 902, 16, muted, "right");
 
       /* —— 底边小字 —— */
-      txt("距离安置截止还有 " + daysLeft() + " 天，在 TA 找到家之前，请记得 TA", W / 2, 956, 15, muted, "center");
+      txt("距离同创汇拆迁还有 " + daysLeft() + " 天，在 TA 找到家之前，请记得 TA", W / 2, 956, 15, muted, "center");
 
       // 导出
       var dataUrl = cv.toDataURL("image/png");
@@ -799,10 +799,10 @@
     var cur = WALL_FILTERS.filter(function (f) { return f.id === wallFilter; })[0];
     var list = CATS.filter(cur.test);
 
-    // 一、待安置（首页能摸到的 16 位）排最前
-    var pool = list.filter(function (c) { return c.pool; });
+    // 一、拆迁待安排（首页能摸到的待安置猫）排最前，寄养/失踪/回喵星不进此组
+    var pool = list.filter(function (c) { return c.pool && (c.status === "wait" || c.status === "shop"); });
     if (pool.length) {
-      box.appendChild(wallSection("待安置", "首页能摸到的 " + pool.length + " 位，优先安置", pool));
+      box.appendChild(wallSection("拆迁待安排", "首页能摸到的 " + pool.length + " 位，优先安置", pool));
     }
     // 二、其余按家族分组
     var rest = list.filter(function (c) { return !c.pool; });
